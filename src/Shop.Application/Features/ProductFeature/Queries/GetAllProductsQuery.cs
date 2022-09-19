@@ -2,11 +2,9 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shop.Application.Features.ProductFeature.Dtos;
-using Shop.Application.Features.ProductFeature.Models;
 using Shop.Application.Interfaces;
-using Shop.Application.Models;
 
-namespace Shop.Application.CQRS.Queries;
+namespace Shop.Application.Features.ProductFeature.Queries;
 
 public record GetAllProductsQuery : IRequest<IEnumerable<ProductResponseDto>>;
 

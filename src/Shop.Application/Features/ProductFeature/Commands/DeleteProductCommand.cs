@@ -1,4 +1,3 @@
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shop.Application.Common.Exceptions;
@@ -26,7 +25,7 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand>
 
         if (existedOne == null)
         {
-            throw new BadRequest("Product does not found");
+            throw new BadRequest("Product not found");
         }
 
         _context.Products.Remove(existedOne);

@@ -1,4 +1,3 @@
-using Shop.Application.Features.ProductFeature.Dtos;
 using Shop.Application.Models.Enums;
 
 namespace Shop.Application.Features.ProductFeature.Models;
@@ -8,7 +7,7 @@ public class Product
     public int Id { get; set; } 
     public string? Name { get; set; } 
     public string? Description { get; set; } 
-    public int NumberOfItem { get; set; }
+    public int NumberOfItems { get; set; }
     public ProductStatus ProductStatus { get; set; }
 
     public virtual string ProductStatusText
@@ -27,16 +26,8 @@ public class Product
         }
     }
 
-    public void Import(Product? existedProduct = null)
+    public void UpdateProductStatus()
     {
-        var existedItems = 0;
-
-        if (existedProduct != null)
-        {
-            existedItems = existedProduct.NumberOfItem;
-        }
-
-        NumberOfItem += existedItems;
-        ProductStatus = NumberOfItem > 0 ? ProductStatus.InStock : ProductStatus.OutOfStock;
+        ProductStatus = NumberOfItems > 0 ? ProductStatus.InStock : ProductStatus.OutOfStock;
     }
 }
