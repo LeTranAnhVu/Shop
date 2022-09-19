@@ -1,10 +1,8 @@
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Shop.Application.Features.ProductFeature.Dtos;
 using Shop.Application.Features.ProductFeature.Models;
 using Shop.Application.Interfaces;
-using Shop.Application.Models;
 
 namespace Shop.Application.Features.ProductFeature.Commands;
 
@@ -24,7 +22,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
     {
         var dto = command.RequestDto;
         var product = _mapper.Map<Product>(dto);
-        product.Import(null);
+        product.UpdateProductStatus();
         _context.Products.Add(product);
         await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<ProductResponseDto>(product);
