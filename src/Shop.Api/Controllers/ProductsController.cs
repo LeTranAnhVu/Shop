@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Application.Common.Exceptions;
 using Shop.Application.Features.ProductFeature.Commands;
 using Shop.Application.Features.ProductFeature.Dtos;
 using Shop.Application.Features.ProductFeature.Models;
@@ -28,19 +29,23 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<Product> Post(CreateProductRequestDto requestDto)
+    public async Task<Product> Post(CreateProductCommand createProductCommand)
     {
         _logger.LogInformation("Hit {} request {}", nameof(ProductsController), nameof(Post));
 
-        return await _sender.Send(new CreateProductCommand(requestDto));
+        return await _sender.Send(createProductCommand);
     }
 
     [HttpPut("{id}")]
-    public async Task<Product> Put(int id, UpdateProductRequestDto requestDto)
+    public async Task<Product> Put(int id, UpdateProductCommand command)
     {
         _logger.LogInformation("Hit {} request {}", nameof(ProductsController), nameof(Put));
+        if (command.Id != id)
+        {
+            throw new BadRequest("Product update command: request Id and Dto Id are mismatched.");
+        }
 
-        return await _sender.Send(new UpdateProductCommand(id, requestDto));
+        return await _sender.Send(command);
     }
 
     [HttpDelete("{id}")]

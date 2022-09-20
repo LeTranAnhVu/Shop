@@ -6,7 +6,7 @@ using Shop.Application.Interfaces;
 
 namespace Shop.Application.Features.ProductFeature.Commands;
 
-public record CreateProductCommand(CreateProductRequestDto RequestDto) : IRequest<ProductResponseDto>;
+public record CreateProductCommand(string Name, string Description, int NumberOfItem) : IRequest<ProductResponseDto>;
 
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ProductResponseDto>
 {
@@ -20,8 +20,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
     }
     public async Task<ProductResponseDto> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
-        var dto = command.RequestDto;
-        var product = _mapper.Map<Product>(dto);
+        var product = _mapper.Map<Product>(command);
         product.UpdateProductStatus();
         _context.Products.Add(product);
         await _context.SaveChangesAsync(cancellationToken);

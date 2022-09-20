@@ -7,7 +7,7 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
 {
     public CreateProductCommandValidator()
     {
-        RuleFor(x => x.RequestDto.Name).NotEmpty();
-        RuleFor(x => x.RequestDto.NumberOfItem).GreaterThanOrEqualTo(0);
+        RuleFor(x => x.Name).NotEmpty();
+        RuleFor(x => x.NumberOfItem).GreaterThanOrEqualTo(0);
     }
 }

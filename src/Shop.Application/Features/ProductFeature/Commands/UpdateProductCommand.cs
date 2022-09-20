@@ -5,10 +5,18 @@ using Shop.Application.Common.Exceptions;
 using Shop.Application.Features.ProductFeature.Dtos;
 using Shop.Application.Features.ProductFeature.Models;
 using Shop.Application.Interfaces;
+using Shop.Application.Models.Enums;
 
 namespace Shop.Application.Features.ProductFeature.Commands;
 
-public record UpdateProductCommand(int Id, UpdateProductRequestDto Dto) : IRequest<ProductResponseDto>;
+public record UpdateProductCommand : IRequest<ProductResponseDto>
+{
+    public int Id { get; set; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public int NumberOfItems { get; set; }
+    public ProductStatus ProductStatus { get; set; }
+};
 
 public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, ProductResponseDto>
 {
@@ -23,23 +31,16 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
 
     public async Task<ProductResponseDto> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
-        var dto = command.Dto;
-
-        if (command.Id != dto.Id)
-        {
-            throw new BadRequest("Product update command, request Id and Dto Id are mismatched.");
-        }
-
         // Make sure the item is existed
         var existedOne = await _context.Products.AsNoTracking()
-            .FirstOrDefaultAsync(p => p.Id == dto.Id, cancellationToken);
+            .FirstOrDefaultAsync(p => p.Id == command.Id, cancellationToken);
 
         if (existedOne == null)
         {
             throw new BadRequest("Product not found");
         }
 
-        var updatedOne = _mapper.Map<Product>(dto);
+        var updatedOne = _mapper.Map<Product>(command);
         updatedOne.UpdateProductStatus();
         _context.Products.Update(updatedOne);
         await _context.SaveChangesAsync(cancellationToken);
