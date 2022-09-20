@@ -31,15 +31,6 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
 
     public async Task<ProductResponseDto> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
-        // Make sure the item is existed
-        var existedOne = await _context.Products.AsNoTracking()
-            .FirstOrDefaultAsync(p => p.Id == command.Id, cancellationToken);
-
-        if (existedOne == null)
-        {
-            throw new BadRequest("Product not found");
-        }
-
         var updatedOne = _mapper.Map<Product>(command);
         updatedOne.UpdateProductStatus();
         _context.Products.Update(updatedOne);

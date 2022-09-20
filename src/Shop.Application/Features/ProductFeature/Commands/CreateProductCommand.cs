@@ -6,7 +6,12 @@ using Shop.Application.Interfaces;
 
 namespace Shop.Application.Features.ProductFeature.Commands;
 
-public record CreateProductCommand(string Name, string Description, int NumberOfItem) : IRequest<ProductResponseDto>;
+public record CreateProductCommand : IRequest<ProductResponseDto>
+{
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public int NumberOfItems { get; set; }
+};
 
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ProductResponseDto>
 {

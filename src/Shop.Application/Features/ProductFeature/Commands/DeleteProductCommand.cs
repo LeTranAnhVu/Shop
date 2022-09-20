@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shop.Application.Common.Exceptions;
+using Shop.Application.Features.ProductFeature.Models;
 using Shop.Application.Interfaces;
 
 namespace Shop.Application.Features.ProductFeature.Commands;
@@ -17,18 +18,9 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand>
     }
 
     public async Task<Unit> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
-    {  
-        // Find the item and delete
-        var existedOne = await _context.Products
-            .AsNoTracking()
-            .FirstOrDefaultAsync(p => p.Id == command.Id, cancellationToken);
-
-        if (existedOne == null)
-        {
-            throw new BadRequest("Product not found");
-        }
-
-        _context.Products.Remove(existedOne);
+    {
+        var product = new Product() {Id = command.Id};
+        _context.Products.Remove(product);
         await _context.SaveChangesAsync(cancellationToken);
         return new Unit();
     }
