@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using FluentValidation.TestHelper;
 using Moq;
 using Moq.EntityFrameworkCore;
+using Shop.Application.Common.Interfaces;
 using Shop.Application.Features.ProductFeature.Commands;
 using Shop.Application.Features.ProductFeature.Models;
 using Shop.Application.Features.ProductFeature.Validators;
-using Shop.Application.Interfaces;
 using Shop.Application.Models.Enums;
 using Xunit;
 

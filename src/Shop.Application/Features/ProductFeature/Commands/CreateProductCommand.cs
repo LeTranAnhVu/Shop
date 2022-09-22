@@ -1,8 +1,8 @@
 using AutoMapper;
 using MediatR;
+using Shop.Application.Common.Interfaces;
 using Shop.Application.Features.ProductFeature.Dtos;
 using Shop.Application.Features.ProductFeature.Models;
-using Shop.Application.Interfaces;
 
 namespace Shop.Application.Features.ProductFeature.Commands;
 

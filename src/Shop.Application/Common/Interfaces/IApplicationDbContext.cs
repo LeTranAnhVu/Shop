@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Shop.Application.Features.ProductFeature.Models;
-using Shop.Application.Models;
 
-namespace Shop.Application.Interfaces;
+namespace Shop.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {

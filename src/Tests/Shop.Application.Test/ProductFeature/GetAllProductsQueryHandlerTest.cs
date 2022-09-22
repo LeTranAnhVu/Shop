@@ -5,10 +5,10 @@ using AutoMapper;
 using FluentAssertions;
 using Moq;
 using Moq.EntityFrameworkCore;
+using Shop.Application.Common.Interfaces;
 using Shop.Application.Features.ProductFeature.Dtos;
 using Shop.Application.Features.ProductFeature.Models;
 using Shop.Application.Features.ProductFeature.Queries;
-using Shop.Application.Interfaces;
 using Shop.Application.Test.Common;
 using Xunit;
 

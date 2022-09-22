@@ -1,7 +1,7 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Shop.Application.Common.Interfaces;
 using Shop.Application.Features.ProductFeature.Commands;
-using Shop.Application.Interfaces;
 
 namespace Shop.Application.Features.ProductFeature.Validators;
 
