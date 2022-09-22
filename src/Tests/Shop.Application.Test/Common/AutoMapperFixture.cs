@@ -1,5 +1,7 @@
 using System;
+using System.Reflection;
 using AutoMapper;
+using MediatR;
 using Shop.Application.Common;
 
 namespace Shop.Application.Test.Common;
