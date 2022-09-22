@@ -5,8 +5,9 @@ using Shop.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.UseShopInfrastructure(builder.Configuration);
-builder.Services.UseShopApplication();
+builder.Services.AddLogging();
+builder.Services.AddShopInfrastructure(builder.Configuration);
+builder.Services.AddShopApplication();
 builder.Services.AddControllers(o =>
 {
     o.Filters.Add<ExceptionFilter>();
@@ -30,4 +31,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+await app.SeedData();
+
 app.Run();
+
